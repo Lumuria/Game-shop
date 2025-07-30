@@ -1,11 +1,14 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { useTranslation } from 'react-i18next';
-import { Link } from 'react-router-dom';  // مهم جداً!
 import { useTheme } from '../hooks/useTheme';
 import { useLanguage } from '../hooks/useLanguage';
 import { useCart } from '../hooks/useCart';
+import { useAuth } from '../contexts/AuthContext';
 import CartModal from './CartModal';
+import LoginModal from './LoginModal';
+import UserMenu from './UserMenu';
+import NotificationCenter from './NotificationCenter';
 
 const HeaderContainer = styled.header`
   background-color: var(--surface-color);
@@ -73,7 +76,6 @@ const ActionButton = styled.button`
   &:hover {
     color: var(--primary-color);
   }
-  position: relative;
 `;
 
 const CartBadge = styled.span`
@@ -84,7 +86,7 @@ const CartBadge = styled.span`
   font-size: 0.7rem;
   position: absolute;
   top: -5px;
-  right: -10px;
+  right: -5px;
 `;
 
 const NavBar = styled.nav`
@@ -112,7 +114,7 @@ const NavItem = styled.li`
   }
 `;
 
-const NavLink = styled(Link)`  /* استخدم Link من react-router-dom */
+const NavLink = styled.a`
   color: var(--text-primary);
   text-decoration: none;
   font-weight: 500;
@@ -145,9 +147,13 @@ const MobileSearchButton = styled(ActionButton)`
   }
 `;
 
-const LanguageToggle = styled(ActionButton)``;
+const LanguageToggle = styled(ActionButton)`
+  position: relative;
+`;
 
-const ThemeToggle = styled(ActionButton)``;
+const ThemeToggle = styled(ActionButton)`
+  position: relative;
+`;
 
 interface HeaderProps {
   onSearchClick?: () => void;
@@ -156,9 +162,11 @@ interface HeaderProps {
 const Header: React.FC<HeaderProps> = ({ onSearchClick }) => {
   const { t } = useTranslation();
   const { theme, toggleTheme } = useTheme();
-  const { language, changeLanguage } = useLanguage();
+  const { language, changeLanguage, isRTL } = useLanguage();
   const { totalItems } = useCart();
+  const { user } = useAuth();
   const [isCartOpen, setIsCartOpen] = useState(false);
+  const [isLoginOpen, setIsLoginOpen] = useState(false);
 
   const handleLanguageToggle = () => {
     changeLanguage(language === 'en' ? 'ar' : 'en');
@@ -168,91 +176,87 @@ const Header: React.FC<HeaderProps> = ({ onSearchClick }) => {
     setIsCartOpen(true);
   };
 
-  const handleCartClose = () => {
-    setIsCartOpen(false);
+  const handleAccountClick = () => {
+    if (user) {
+      // المستخدم مسجل دخول - لا نحتاج لفعل شيء هنا لأن UserMenu سيظهر
+    } else {
+      setIsLoginOpen(true);
+    }
   };
 
   return (
     <HeaderContainer>
       <TopBar>
         <Logo>{t('app.name')}</Logo>
-
         <SearchBar>
-          <SearchInput
-            placeholder={t('nav.search')}
+          <SearchInput 
+            placeholder={t('nav.search')} 
             onClick={onSearchClick}
             readOnly
-            aria-label={t('nav.search')}
           />
         </SearchBar>
-
         <UserActions>
           <MobileSearchButton aria-label={t('nav.search')} onClick={onSearchClick}>
-            🔍
+            <span>🔍</span>
           </MobileSearchButton>
-
-          <LanguageToggle
-            aria-label={t('nav.language')}
-            onClick={handleLanguageToggle}
-            title={t('nav.language')}
-          >
-            {language === 'en' ? 'AR' : 'EN'}
+          <LanguageToggle onClick={handleLanguageToggle}>
+            <span>{language === 'en' ? 'AR' : 'EN'}</span>
             <small>{t('nav.language')}</small>
           </LanguageToggle>
-
-          <ThemeToggle
-            aria-label={t('nav.theme')}
-            onClick={toggleTheme}
-            title={t('nav.theme')}
-          >
-            {theme === 'light' ? '🌙' : '☀️'}
+          <ThemeToggle onClick={toggleTheme}>
+            <span>{theme === 'light' ? '🌙' : '☀️'}</span>
             <small>{t('nav.theme')}</small>
           </ThemeToggle>
-
-          <ActionButton aria-label={t('nav.account')} title={t('nav.account')}>
-            👤
-            <small>{t('nav.account')}</small>
-          </ActionButton>
-
-          <ActionButton
-            aria-label={t('nav.cart')}
-            onClick={handleCartClick}
-            title={t('nav.cart')}
-          >
-            🛒
-            {totalItems > 0 && <CartBadge>{totalItems}</CartBadge>}
+          
+          <NotificationCenter />
+          
+          {user ? (
+            <UserMenu />
+          ) : (
+            <ActionButton aria-label={t('nav.account')} onClick={handleAccountClick}>
+              <span>👤</span>
+              <small>{t('nav.account')}</small>
+            </ActionButton>
+          )}
+          
+          <ActionButton aria-label={t('nav.cart')} style={{ position: 'relative' }} onClick={handleCartClick}>
+            <span>🛒</span>
+            <CartBadge>{totalItems}</CartBadge>
             <small>{t('nav.cart')}</small>
           </ActionButton>
         </UserActions>
       </TopBar>
-
       <NavBar>
         <NavList>
           <NavItem>
-            <NavLink to="/">{t('nav.home')}</NavLink>
+            <NavLink href="/">{t('nav.home')}</NavLink>
           </NavItem>
           <NavItem>
-            <NavLink to="/store">{t('nav.store')}</NavLink>
+            <NavLink href="/store">{t('nav.store')}</NavLink>
           </NavItem>
           <NavItem>
-            <NavLink to="/pc-builder">{t('nav.pcBuilder')}</NavLink>
+            <NavLink href="/pc-builder">{t('nav.pcBuilder')}</NavLink>
           </NavItem>
           <NavItem>
-            <NavLink to="/store/games">{t('categories.games')}</NavLink>
+            <NavLink href="/premium-software">{t('nav.premiumSoftware') || 'البرامج المدفوعة'}</NavLink>
           </NavItem>
           <NavItem>
-            <NavLink to="/store/accessories">{t('categories.accessories')}</NavLink>
+            <NavLink href="/store/games">{t('categories.games')}</NavLink>
           </NavItem>
           <NavItem>
-            <NavLink to="/store/components">{t('categories.components')}</NavLink>
+            <NavLink href="/store/accessories">{t('categories.accessories')}</NavLink>
           </NavItem>
           <NavItem>
-            <NavLink to="/store/peripherals">{t('categories.peripherals')}</NavLink>
+            <NavLink href="/store/components">{t('categories.components')}</NavLink>
+          </NavItem>
+          <NavItem>
+            <NavLink href="/store/peripherals">{t('categories.peripherals')}</NavLink>
           </NavItem>
         </NavList>
       </NavBar>
-
-      <CartModal isOpen={isCartOpen} onClose={handleCartClose} />
+      
+      <CartModal isOpen={isCartOpen} onClose={() => setIsCartOpen(false)} />
+      <LoginModal isOpen={isLoginOpen} onClose={() => setIsLoginOpen(false)} />
     </HeaderContainer>
   );
 };

@@ -4,11 +4,11 @@ import Toast from '../components/Toast';
 interface ToastItem {
   id: string;
   message: string;
-  type: 'success' | 'error' | 'info';
+  type: 'success' | 'error' | 'info' | 'warning'; // ✅ أضفنا 'warning'
 }
 
 interface ToastContextType {
-  showToast: (message: string, type?: 'success' | 'error' | 'info') => void;
+  showToast: (message: string, type?: 'success' | 'error' | 'info' | 'warning') => void; // ✅ أضفنا 'warning'
 }
 
 const ToastContext = createContext<ToastContextType | undefined>(undefined);
@@ -28,7 +28,7 @@ interface ToastProviderProps {
 export const ToastProvider: React.FC<ToastProviderProps> = ({ children }) => {
   const [toasts, setToasts] = useState<ToastItem[]>([]);
 
-  const showToast = (message: string, type: 'success' | 'error' | 'info' = 'info') => {
+  const showToast = (message: string, type: 'success' | 'error' | 'info' | 'warning' = 'info') => {
     const id = Date.now().toString();
     const newToast: ToastItem = { id, message, type };
     
@@ -58,4 +58,3 @@ export const ToastProvider: React.FC<ToastProviderProps> = ({ children }) => {
     </ToastContext.Provider>
   );
 };
-

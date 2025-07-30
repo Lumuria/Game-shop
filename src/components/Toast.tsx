@@ -3,7 +3,7 @@ import styled, { keyframes } from 'styled-components';
 
 interface ToastProps {
   message: string;
-  type?: 'success' | 'error' | 'info';
+  type?: 'success' | 'error' | 'info' | 'warning';  // أضفت 'warning' هنا
   duration?: number;
   onClose: () => void;
 }
@@ -37,6 +37,7 @@ const ToastContainer = styled.div<{ type: string }>`
   background-color: ${({ type }) => 
     type === 'success' ? '#4CAF50' : 
     type === 'error' ? '#f44336' : 
+    type === 'warning' ? '#ff9800' :   /* لون تحذيري لـ warning */
     '#2196F3'};
   color: white;
   padding: 1rem 1.5rem;
@@ -86,4 +87,3 @@ const Toast: React.FC<ToastProps> = ({ message, type = 'info', duration = 3000, 
 };
 
 export default Toast;
-

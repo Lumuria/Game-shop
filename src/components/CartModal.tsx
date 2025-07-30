@@ -8,14 +8,14 @@ interface CartModalProps {
   onClose: () => void;
 }
 
-const Overlay = styled.div<{ isOpen: boolean }>`
+const Overlay = styled.div<{ $isOpen: boolean }>`
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
   background-color: rgba(0, 0, 0, 0.5);
-  display: ${({ isOpen }) => (isOpen ? 'flex' : 'none')};
+  display: ${({ $isOpen }) => ($isOpen ? 'flex' : 'none')};
   justify-content: center;
   align-items: center;
   z-index: 1000;
@@ -54,7 +54,7 @@ const CloseButton = styled.button`
   color: var(--text-secondary);
   padding: 0.5rem;
   border-radius: 50%;
-  
+
   &:hover {
     background-color: var(--background-color);
   }
@@ -65,7 +65,7 @@ const CartItem = styled.div`
   align-items: center;
   padding: 1rem 0;
   border-bottom: 1px solid var(--border-color);
-  
+
   &:last-child {
     border-bottom: none;
   }
@@ -111,11 +111,11 @@ const QuantityButton = styled.button`
   display: flex;
   align-items: center;
   justify-content: center;
-  
+
   &:hover {
     background-color: var(--secondary-color);
   }
-  
+
   &:disabled {
     background-color: var(--border-color);
     cursor: not-allowed;
@@ -135,7 +135,7 @@ const RemoveButton = styled.button`
   color: var(--error-color);
   cursor: pointer;
   padding: 0.5rem;
-  
+
   &:hover {
     background-color: var(--background-color);
     border-radius: 4px;
@@ -174,11 +174,11 @@ const CheckoutButton = styled.button`
   font-size: 1rem;
   font-weight: bold;
   cursor: pointer;
-  
+
   &:hover {
     background-color: var(--secondary-color);
   }
-  
+
   &:disabled {
     background-color: var(--border-color);
     cursor: not-allowed;
@@ -187,7 +187,7 @@ const CheckoutButton = styled.button`
 
 const CartModal: React.FC<CartModalProps> = ({ isOpen, onClose }) => {
   const { t } = useTranslation();
-  const { cartItems, updateQuantity, removeFromCart, totalPrice, clearCart } = useCart();
+  const { cartItems, updateQuantity, removeFromCart, totalPrice } = useCart();
 
   const handleOverlayClick = (e: React.MouseEvent) => {
     if (e.target === e.currentTarget) {
@@ -196,13 +196,13 @@ const CartModal: React.FC<CartModalProps> = ({ isOpen, onClose }) => {
   };
 
   return (
-    <Overlay isOpen={isOpen} onClick={handleOverlayClick}>
+    <Overlay $isOpen={isOpen} onClick={handleOverlayClick}>
       <Modal>
         <Header>
           <Title>{t('cart.title')}</Title>
           <CloseButton onClick={onClose}>×</CloseButton>
         </Header>
-        
+
         {cartItems.length === 0 ? (
           <EmptyCart>
             <p>{t('cart.empty')}</p>
@@ -220,14 +220,18 @@ const CartModal: React.FC<CartModalProps> = ({ isOpen, onClose }) => {
                 </ItemDetails>
                 <QuantityControls>
                   <QuantityButton
-                    onClick={() => updateQuantity(item.product.id, item.quantity - 1)}
+                    onClick={() =>
+                      updateQuantity(item.product.id, item.quantity - 1)
+                    }
                     disabled={item.quantity <= 1}
                   >
                     -
                   </QuantityButton>
                   <Quantity>{item.quantity}</Quantity>
                   <QuantityButton
-                    onClick={() => updateQuantity(item.product.id, item.quantity + 1)}
+                    onClick={() =>
+                      updateQuantity(item.product.id, item.quantity + 1)
+                    }
                   >
                     +
                   </QuantityButton>
@@ -237,15 +241,13 @@ const CartModal: React.FC<CartModalProps> = ({ isOpen, onClose }) => {
                 </RemoveButton>
               </CartItem>
             ))}
-            
+
             <Footer>
               <Total>
                 <span>{t('cart.total')}:</span>
                 <span>${totalPrice.toFixed(2)}</span>
               </Total>
-              <CheckoutButton>
-                {t('cart.checkout')}
-              </CheckoutButton>
+              <CheckoutButton>{t('cart.checkout')}</CheckoutButton>
             </Footer>
           </>
         )}
@@ -255,4 +257,3 @@ const CartModal: React.FC<CartModalProps> = ({ isOpen, onClose }) => {
 };
 
 export default CartModal;
-

@@ -9,14 +9,15 @@ interface SearchModalProps {
   products: Product[];
 }
 
-const Overlay = styled.div<{ isOpen: boolean }>`
+// transient prop $isOpen لتجنب تحذير React
+const Overlay = styled.div<{ $isOpen: boolean }>`
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
   background-color: rgba(0, 0, 0, 0.5);
-  display: ${({ isOpen }) => (isOpen ? 'flex' : 'none')};
+  display: ${({ $isOpen }) => ($isOpen ? 'flex' : 'none')};
   justify-content: center;
   align-items: flex-start;
   padding-top: 10vh;
@@ -32,6 +33,7 @@ const Modal = styled.div`
   max-height: 70vh;
   overflow-y: auto;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  position: relative;
 `;
 
 const SearchInput = styled.input`
@@ -43,7 +45,7 @@ const SearchInput = styled.input`
   background-color: var(--background-color);
   color: var(--text-primary);
   margin-bottom: 1rem;
-  
+
   &:focus {
     outline: none;
     border-color: var(--primary-color);
@@ -62,11 +64,11 @@ const ResultItem = styled.div`
   border-bottom: 1px solid var(--border-color);
   cursor: pointer;
   transition: background-color 0.3s ease;
-  
+
   &:hover {
     background-color: var(--background-color);
   }
-  
+
   &:last-child {
     border-bottom: none;
   }
@@ -118,7 +120,7 @@ const CloseButton = styled.button`
   color: var(--text-secondary);
   padding: 0.5rem;
   border-radius: 50%;
-  
+
   &:hover {
     background-color: var(--background-color);
   }
@@ -157,10 +159,10 @@ const SearchModal: React.FC<SearchModalProps> = ({ isOpen, onClose, products }) 
   };
 
   return (
-    <Overlay isOpen={isOpen} onClick={handleOverlayClick}>
-      <Modal style={{ position: 'relative' }}>
+    <Overlay $isOpen={isOpen} onClick={handleOverlayClick}>
+      <Modal>
         <CloseButton onClick={handleClose}>×</CloseButton>
-        
+
         <SearchInput
           type="text"
           placeholder={t('search.placeholder')}
@@ -168,14 +170,14 @@ const SearchModal: React.FC<SearchModalProps> = ({ isOpen, onClose, products }) 
           onChange={(e) => setSearchTerm(e.target.value)}
           autoFocus
         />
-        
+
         <ResultsContainer>
           {searchTerm.trim() !== '' && filteredProducts.length === 0 && (
             <NoResults>
               <p>{t('search.noResults')}</p>
             </NoResults>
           )}
-          
+
           {filteredProducts.map((product) => (
             <ResultItem key={product.id} onClick={handleClose}>
               <ResultImage src={product.image} alt={product.name} />
@@ -195,4 +197,3 @@ const SearchModal: React.FC<SearchModalProps> = ({ isOpen, onClose, products }) 
 };
 
 export default SearchModal;
-

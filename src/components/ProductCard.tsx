@@ -61,9 +61,9 @@ const Badge = styled.span<{ type: 'new' | 'sale' | 'out' }>`
   font-weight: bold;
   text-transform: uppercase;
   color: white;
-  background-color: ${({ type }) => 
-    type === 'new' ? 'var(--primary-color)' : 
-    type === 'sale' ? 'var(--secondary-color)' : 
+  background-color: ${({ type }) =>
+    type === 'new' ? 'var(--primary-color)' :
+    type === 'sale' ? 'var(--secondary-color)' :
     'var(--error-color)'};
 `;
 
@@ -117,7 +117,7 @@ const ActionContainer = styled.div`
   margin-top: 1rem;
 `;
 
-const Button = styled.button<{ primary?: boolean }>`
+const Button = styled.button<{ $primary?: boolean }>`
   padding: 0.5rem;
   border: none;
   border-radius: 4px;
@@ -127,17 +127,17 @@ const Button = styled.button<{ primary?: boolean }>`
   display: flex;
   align-items: center;
   justify-content: center;
-  
-  background-color: ${({ primary }) => 
-    primary ? 'var(--primary-color)' : 'transparent'};
-  color: ${({ primary }) => 
-    primary ? 'white' : 'var(--text-primary)'};
-  border: ${({ primary }) => 
-    primary ? 'none' : '1px solid var(--border-color)'};
+
+  background-color: ${({ $primary }) =>
+    $primary ? 'var(--primary-color)' : 'transparent'};
+  color: ${({ $primary }) =>
+    $primary ? 'white' : 'var(--text-primary)'};
+  border: ${({ $primary }) =>
+    $primary ? 'none' : '1px solid var(--border-color)'};
 
   &:hover {
-    background-color: ${({ primary }) => 
-      primary ? 'var(--primary-color)' : 'var(--background-color)'};
+    background-color: ${({ $primary }) =>
+      $primary ? 'var(--primary-color)' : 'var(--background-color)'};
   }
 
   &:disabled {
@@ -167,10 +167,24 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
     showToast(`${product.name} ${t('cart.addedToCart')}`, 'success');
   };
 
+  // روابط صور مأخوذة من مواقع رسمية
+  const imageUrls: Record<string, string> = {
+    "RTX3080": "https://images.nvidia.com/rdp/graphics/rtx-3080/gallery/rtx-3080-gallery-03-1920x1080.jpg",
+    "Headset": "https://www.logitechg.com/assets/69971/1/logitech-g-pro-x-wireless-headset-gallery-1.jpg",
+    "PS5": "https://www.playstation.com/content/dam/pscom/ps5/ps5-digital-edition/ps5-digital-edition-hero-01.jpg",
+    "Monitor": "https://www.dell.com/sites/csimages/App-Merchandizing_Images/all/monitors-ultrasharp-u2723qe-front.png",
+    "Xbox": "https://compass-ssl.xbox.com/assets/28/2d/282d381b-4c51-48af-b9e6-0446d57c6e6c.jpg?n=Xbox-Series-X_Home-0_Xbox-Cloud-Gaming_1083x609.jpg",
+    "Mouse": "https://www.razer.com/assets/images/products/deathadder-v3-pro/gallery/deathadder-v3-pro-gallery-01.png",
+    "RAM": "https://www.corsair.com/medias/sys_master/images/images/h0e/h18/9046716647966/-CMW32GX4M2C3200C16-01.png",
+    "Ryzen9": "https://www.amd.com/system/files/2022-08/amd-ryzen-9-7950x-hero.png",
+  };
+
+  const imageSrc = imageUrls[product.name] || product.image;
+
   return (
     <Card>
       <ImageContainer>
-        <ProductImage src={product.image} alt={product.name} />
+        <ProductImage src={imageSrc} alt={product.name} />
         <BadgeContainer>
           {product.isNew && <Badge type="new">{t('product.new')}</Badge>}
           {product.discountPrice && <Badge type="sale">{t('product.sale')}</Badge>}
@@ -187,8 +201,8 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
           {product.discountPrice && <OriginalPrice>${product.price}</OriginalPrice>}
         </PriceContainer>
         <ActionContainer>
-          <AddToCartButton 
-            primary 
+          <AddToCartButton
+            $primary
             onClick={handleAddToCart}
             disabled={!product.inStock}
           >
