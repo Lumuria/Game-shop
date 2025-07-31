@@ -329,7 +329,7 @@ const BuilderLayout = styled.div`
   display: grid;
   grid-template-columns: 1fr 350px;
   gap: 2rem;
-  
+
   @media (max-width: 992px) {
     grid-template-columns: 1fr;
   }
@@ -351,7 +351,7 @@ const ComponentGrid = styled.div`
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 1rem;
-  
+
   @media (max-width: 768px) {
     grid-template-columns: 1fr;
   }
@@ -365,7 +365,7 @@ const ComponentCard = styled.div<{ selected: boolean }>`
   display: flex;
   cursor: pointer;
   transition: all 0.3s ease;
-  
+
   &:hover {
     transform: translateY(-3px);
     box-shadow: 0 5px 15px var(--shadow-color);
@@ -377,7 +377,7 @@ const ComponentImage = styled.div`
   height: 80px;
   margin-right: 1rem;
   flex-shrink: 0;
-  
+
   img {
     width: 100%;
     height: 100%;
@@ -460,7 +460,7 @@ const SummaryItem = styled.div`
   justify-content: space-between;
   padding: 0.8rem 0;
   border-bottom: 1px solid var(--border-color);
-  
+
   &:last-child {
     border-bottom: none;
   }
@@ -487,11 +487,11 @@ const ActionButton = styled.button`
   cursor: pointer;
   transition: opacity 0.3s ease;
   margin-bottom: 1rem;
-  
+
   &:hover {
     opacity: 0.9;
   }
-  
+
   &:disabled {
     background-color: var(--border-color);
     cursor: not-allowed;
@@ -502,7 +502,7 @@ const SecondaryButton = styled(ActionButton)`
   background-color: transparent;
   color: var(--primary-color);
   border: 1px solid var(--primary-color);
-  
+
   &:hover {
     background-color: var(--primary-color);
     color: white;
@@ -511,17 +511,17 @@ const SecondaryButton = styled(ActionButton)`
 
 const PCBuilderPage: React.FC = () => {
   const { t } = useTranslation();
-  const { 
-    components, 
-    addComponent, 
-    removeComponent, 
+  const {
+    components,
+    addComponent,
+    removeComponent,
     getCompatibilityScore,
     getPowerConsumption,
     getPerformanceScore,
     getTotalPrice
   } = usePCBuilder();
   const { addToCart } = useCart();
-  
+
   const handleSelectComponent = (type: string, component: PCComponent) => {
     if (components[type]?.id === component.id) {
       removeComponent(type);
@@ -529,7 +529,7 @@ const PCBuilderPage: React.FC = () => {
       addComponent(type, component);
     }
   };
-  
+
   const handleAddAllToCart = () => {
     Object.values(components).forEach(component => {
       if (component) {
@@ -545,31 +545,31 @@ const PCBuilderPage: React.FC = () => {
       }
     });
   };
-  
+
   const compatibilityScore = getCompatibilityScore();
   const powerConsumption = getPowerConsumption();
   const performanceScore = getPerformanceScore();
   const totalPrice = getTotalPrice();
-  
+
   const hasComponents = Object.values(components).some(component => component !== null);
-  
+
   return (
     <PageContainer>
       <Header />
-      
+
       <MainContent>
         <Container>
           <BuilderTitle>{t('pcBuilder.title')}</BuilderTitle>
           <BuilderSubtitle>{t('pcBuilder.subtitle')}</BuilderSubtitle>
-          
+
           <BuilderLayout>
             <ComponentsSection>
               {Object.keys(mockComponents).map((type) => (
                 <ComponentCategory key={type}>
                   <CategoryHeader>{t(`pcBuilder.${type}`)}</CategoryHeader>
                   <ComponentGrid>
-                    {mockComponents[type].map((component) => (
-                      <ComponentCard 
+                    {mockComponents[type as keyof typeof mockComponents].map((component) => (
+                      <ComponentCard
                         key={component.id}
                         selected={components[type]?.id === component.id}
                         onClick={() => handleSelectComponent(type, component)}
@@ -588,7 +588,7 @@ const PCBuilderPage: React.FC = () => {
                 </ComponentCategory>
               ))}
             </ComponentsSection>
-            
+
             <SummarySection>
               <SummaryCard>
                 <SummaryTitle>{t('pcBuilder.compatibility')}</SummaryTitle>
@@ -598,7 +598,7 @@ const PCBuilderPage: React.FC = () => {
                   </ScoreCircle>
                   <ScoreLabel>{t('pcBuilder.compatibilityScore')}</ScoreLabel>
                 </CompatibilityScore>
-                
+
                 <SummaryList>
                   <SummaryItem>
                     <ItemLabel>{t('pcBuilder.powerConsumption')}</ItemLabel>
@@ -613,8 +613,8 @@ const PCBuilderPage: React.FC = () => {
                     <ItemValue>${totalPrice.toFixed(2)}</ItemValue>
                   </SummaryItem>
                 </SummaryList>
-                
-                <ActionButton 
+
+                <ActionButton
                   onClick={handleAddAllToCart}
                   disabled={!hasComponents}
                 >
@@ -631,7 +631,7 @@ const PCBuilderPage: React.FC = () => {
           </BuilderLayout>
         </Container>
       </MainContent>
-      
+
       <Footer />
     </PageContainer>
   );

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { useTranslation } from 'react-i18next';
+import { Link } from 'react-router-dom';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import ProductGrid from '../components/ProductGrid';
@@ -155,7 +156,7 @@ const HeroSubtitle = styled.p`
   }
 `;
 
-const HeroButton = styled.a`
+const HeroButton = styled(Link)`
   display: inline-block;
   background-color: var(--primary-color);
   color: white;
@@ -194,7 +195,7 @@ const CategoryGrid = styled.div`
   }
 `;
 
-const CategoryCard = styled.a`
+const CategoryCard = styled(Link)`
   position: relative;
   height: 200px;
   border-radius: 8px;
@@ -208,6 +209,8 @@ const CategoryCard = styled.a`
   font-size: 1.5rem;
   text-align: center;
   transition: transform 0.3s ease;
+  background-size: cover;
+  background-position: center;
   
   &:hover {
     transform: translateY(-5px);
@@ -266,7 +269,7 @@ const PromoDescription = styled.p`
   line-height: 1.6;
 `;
 
-const PromoButton = styled.a`
+const PromoButton = styled(Link)`
   display: inline-block;
   background-color: var(--primary-color);
   color: white;
@@ -298,10 +301,8 @@ const PromoImage = styled.div`
 const HomePage: React.FC = () => {
   const { t } = useTranslation();
   const [isSearchOpen, setIsSearchOpen] = useState(false);
-  
-  // Combine all products for search
   const allProducts = [...featuredProducts, ...bestSellers];
-  
+
   return (
     <PageContainer>
       <Header onSearchClick={() => setIsSearchOpen(true)} />
@@ -311,7 +312,7 @@ const HomePage: React.FC = () => {
           <HeroContent>
             <HeroTitle>{t('app.name')}</HeroTitle>
             <HeroSubtitle>{t('app.tagline')}</HeroSubtitle>
-            <HeroButton href="/store">{t('nav.store')}</HeroButton>
+            <HeroButton to="/store">{t('nav.store')}</HeroButton>
           </HeroContent>
         </HeroSection>
         
@@ -319,16 +320,16 @@ const HomePage: React.FC = () => {
           <CategorySection>
             <CategoryTitle>{t('home.browseCategories')}</CategoryTitle>
             <CategoryGrid>
-              <CategoryCard href="/store/games" style={{ backgroundImage: 'url(https://via.placeholder.com/300x200?text=Games)' }}>
+              <CategoryCard to="/store/games" style={{ backgroundImage: 'url(https://via.placeholder.com/300x200?text=Games)' }}>
                 <CategoryName>{t('categories.games')}</CategoryName>
               </CategoryCard>
-              <CategoryCard href="/store/accessories" style={{ backgroundImage: 'url(https://via.placeholder.com/300x200?text=Accessories)' }}>
+              <CategoryCard to="/store/accessories" style={{ backgroundImage: 'url(https://via.placeholder.com/300x200?text=Accessories)' }}>
                 <CategoryName>{t('categories.accessories')}</CategoryName>
               </CategoryCard>
-              <CategoryCard href="/store/components" style={{ backgroundImage: 'url(https://via.placeholder.com/300x200?text=Components)' }}>
+              <CategoryCard to="/store/components" style={{ backgroundImage: 'url(https://via.placeholder.com/300x200?text=Components)' }}>
                 <CategoryName>{t('categories.components')}</CategoryName>
               </CategoryCard>
-              <CategoryCard href="/store/peripherals" style={{ backgroundImage: 'url(https://via.placeholder.com/300x200?text=Peripherals)' }}>
+              <CategoryCard to="/store/peripherals" style={{ backgroundImage: 'url(https://via.placeholder.com/300x200?text=Peripherals)' }}>
                 <CategoryName>{t('categories.peripherals')}</CategoryName>
               </CategoryCard>
             </CategoryGrid>
@@ -339,10 +340,8 @@ const HomePage: React.FC = () => {
           <PCBuilderPromo>
             <PromoContent>
               <PromoTitle>{t('pcBuilder.title')}</PromoTitle>
-              <PromoDescription>
-                {t('home.pcBuilderPromo')}
-              </PromoDescription>
-              <PromoButton href="/pc-builder">{t('home.startBuilding')}</PromoButton>
+              <PromoDescription>{t('home.pcBuilderPromo')}</PromoDescription>
+              <PromoButton to="/pc-builder">{t('home.startBuilding')}</PromoButton>
             </PromoContent>
             <PromoImage />
           </PCBuilderPromo>

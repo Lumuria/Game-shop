@@ -309,18 +309,15 @@ const PremiumSoftwarePage: React.FC = () => {
       showToast(t('loginRequired') || 'يرجى تسجيل الدخول أولاً', 'info');
       return;
     }
-    addToCart(
-  {
-    id: item.id,
-    name: item.name,
-    price: item.currentPrice,
-    image: item.image,
-    description: item.description,
-    category: 'software',
-    inStock: true, 
-  },
-  1
-);
+    addToCart({
+      id: item.id,
+      name: item.name,
+      price: item.currentPrice,
+      image: item.image,
+      description: item.description,
+      category: 'software',
+      inStock: true,
+    }, 1);
 
     showToast(t('addedToCart') || 'تم إضافة البرنامج إلى السلة', 'success');
   };

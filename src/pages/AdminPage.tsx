@@ -585,9 +585,14 @@ const AdminPage: React.FC = () => {
     </Modal>
   );
 
-  if (!user || !isAdmin()) {
-    return null;
-  }
+ if (!user || typeof isAdmin !== 'function') {
+  return <div style={{ padding: '2rem', textAlign: 'center' }}>جاري التحقق من الصلاحيات...</div>;
+}
+
+if (!isAdmin()) {
+  return <div style={{ padding: '2rem', textAlign: 'center' }}>ليس لديك صلاحيات الوصول.</div>;
+}
+
 
   return (
     <PageContainer dir={isRTL ? 'rtl' : 'ltr'}>

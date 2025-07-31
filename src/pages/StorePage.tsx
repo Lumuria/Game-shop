@@ -8,7 +8,7 @@ import CategoryFilter from '../components/CategoryFilter';
 import PriceFilter from '../components/PriceFilter';
 import { Product } from '../contexts/CartContext';
 
-// Mock data for demonstration
+// منتجات وهمية (mock data)
 const mockProducts: Product[] = [
   {
     id: '1',
@@ -88,6 +88,7 @@ const mockProducts: Product[] = [
   }
 ];
 
+// 🎨 Styled Components
 const PageContainer = styled.div`
   min-height: 100vh;
   display: flex;
@@ -109,7 +110,7 @@ const StoreLayout = styled.div`
   display: grid;
   grid-template-columns: 250px 1fr;
   gap: 2rem;
-  
+
   @media (max-width: 768px) {
     grid-template-columns: 1fr;
   }
@@ -124,7 +125,7 @@ const Sidebar = styled.aside`
 const MobileFilters = styled.div`
   display: none;
   margin-bottom: 1.5rem;
-  
+
   @media (max-width: 768px) {
     display: block;
   }
@@ -142,7 +143,7 @@ const FilterButton = styled.button`
   align-items: center;
   justify-content: center;
   width: 100%;
-  
+
   &:hover {
     background-color: var(--background-color);
   }
@@ -152,54 +153,53 @@ const FilterIcon = styled.span`
   margin-right: 0.5rem;
 `;
 
+// 📦 Component
 const StorePage: React.FC = () => {
   const { t } = useTranslation();
+
   const [selectedCategory, setSelectedCategory] = React.useState<string | null>(null);
   const [priceRange, setPriceRange] = React.useState({ min: 0, max: 1000 });
   const [showMobileFilters, setShowMobileFilters] = React.useState(false);
-  
-  // Filter products based on selected category and price range
-  const filteredProducts = mockProducts.filter(product => {
-    const matchesCategory = selectedCategory ? product.category === selectedCategory : true;
-    const matchesPrice = 
-      (product.discountPrice || product.price) >= priceRange.min && 
-      (product.discountPrice || product.price) <= priceRange.max;
-    
-    return matchesCategory && matchesPrice;
-  });
-  
+
   const categories = Array.from(new Set(mockProducts.map(product => product.category)));
-  
+
   const handlePriceChange = (min: number, max: number) => {
     setPriceRange({ min, max });
   };
-  
+
   const toggleMobileFilters = () => {
-    setShowMobileFilters(!showMobileFilters);
+    setShowMobileFilters(prev => !prev);
   };
-  
+
+  const filteredProducts = mockProducts.filter(product => {
+    const price = product.discountPrice ?? product.price;
+    const matchesCategory = selectedCategory ? product.category === selectedCategory : true;
+    const matchesPrice = price >= priceRange.min && price <= priceRange.max;
+    return matchesCategory && matchesPrice;
+  });
+
   return (
     <PageContainer>
       <Header />
-      
+
       <MainContent>
         <Container>
-          <h1>{t('nav.store')}</h1>
-          
+          <h1>{t('nav.store') || 'Store'}</h1>
+
           <MobileFilters>
             <FilterButton onClick={toggleMobileFilters}>
               <FilterIcon>🔍</FilterIcon>
-              {t('store.filters')}
+              {t('store.filters') || 'Filters'}
             </FilterButton>
-            
+
             {showMobileFilters && (
               <>
-                <CategoryFilter 
+                <CategoryFilter
                   categories={categories}
                   selectedCategory={selectedCategory}
                   onSelectCategory={setSelectedCategory}
                 />
-                <PriceFilter 
+                <PriceFilter
                   minPrice={0}
                   maxPrice={1000}
                   currentMin={priceRange.min}
@@ -209,15 +209,15 @@ const StorePage: React.FC = () => {
               </>
             )}
           </MobileFilters>
-          
+
           <StoreLayout>
             <Sidebar>
-              <CategoryFilter 
+              <CategoryFilter
                 categories={categories}
                 selectedCategory={selectedCategory}
                 onSelectCategory={setSelectedCategory}
               />
-              <PriceFilter 
+              <PriceFilter
                 minPrice={0}
                 maxPrice={1000}
                 currentMin={priceRange.min}
@@ -225,17 +225,21 @@ const StorePage: React.FC = () => {
                 onPriceChange={handlePriceChange}
               />
             </Sidebar>
-            
+
             <div>
-              <ProductGrid 
-                products={filteredProducts} 
-                title={selectedCategory ? t(`categories.${selectedCategory.toLowerCase()}`) : t('store.allProducts')}
+              <ProductGrid
+                products={filteredProducts}
+                title={
+                  selectedCategory
+                    ? t(`categories.${selectedCategory.toLowerCase()}`) || selectedCategory
+                    : t('store.allProducts') || 'All Products'
+                }
               />
             </div>
           </StoreLayout>
         </Container>
       </MainContent>
-      
+
       <Footer />
     </PageContainer>
   );

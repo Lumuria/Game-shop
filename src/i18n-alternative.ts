@@ -2,17 +2,12 @@ import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
 import LanguageDetector from 'i18next-browser-languagedetector';
 
-// Import translation files directly
 import enTranslation from '../public/locales/en/translation.json';
 import arTranslation from '../public/locales/ar/translation.json';
 
 const resources = {
-  en: {
-    translation: enTranslation
-  },
-  ar: {
-    translation: arTranslation
-  }
+  en: { translation: enTranslation },
+  ar: { translation: arTranslation },
 };
 
 i18n
@@ -22,16 +17,12 @@ i18n
     resources,
     fallbackLng: 'en',
     debug: false,
-    
-    interpolation: {
-      escapeValue: false,
-    },
-    
+    interpolation: { escapeValue: false },
     detection: {
       order: ['localStorage', 'navigator', 'htmlTag'],
       caches: ['localStorage'],
     },
   });
 
+// Export i18n
 export default i18n;
-

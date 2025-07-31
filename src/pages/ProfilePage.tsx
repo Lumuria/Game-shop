@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { useAuth } from '../contexts/AuthContext';
 import { useLanguage } from '../hooks/useLanguage';
@@ -7,6 +7,7 @@ import { useTranslation } from 'react-i18next';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 
+// [1] Styled Components
 const PageContainer = styled.div`
   min-height: 100vh;
   background: var(--background-color);
@@ -81,6 +82,7 @@ const UserRole = styled.div<{ isAdmin: boolean }>`
   font-size: 0.9rem;
 `;
 
+// [2] Tabs
 const TabContainer = styled.div`
   display: flex;
   gap: 1rem;
@@ -110,6 +112,7 @@ const ContentArea = styled.div`
   padding: 2rem;
 `;
 
+// [3] Form elements
 const FormGroup = styled.div`
   margin-bottom: 1.5rem;
 `;
@@ -185,6 +188,7 @@ const Button = styled.button<{ variant?: 'primary' | 'secondary' }>`
   }
 `;
 
+// [4] Stats + Orders
 const StatGrid = styled.div`
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -253,6 +257,7 @@ const OrderDetails = styled.div`
   font-size: 0.9rem;
 `;
 
+// [5] Component
 const ProfilePage: React.FC = () => {
   const [activeTab, setActiveTab] = useState('profile');
   const [isEditing, setIsEditing] = useState(false);
@@ -269,11 +274,11 @@ const ProfilePage: React.FC = () => {
   const { t } = useTranslation();
   const { showToast } = useToast();
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (user) {
       setFormData({
-        username: user.username,
-        email: user.email,
+        username: user.username || '',
+        email: user.email || '',
         bio: '',
         phone: '',
         address: ''
@@ -306,7 +311,6 @@ const ProfilePage: React.FC = () => {
     return name.split(' ').map(n => n[0]).join('').toUpperCase().slice(0, 2);
   };
 
-  // بيانات تجريبية
   const userStats = {
     totalOrders: 12,
     totalSpent: 2450,
@@ -320,140 +324,20 @@ const ProfilePage: React.FC = () => {
     { id: '003', product: 'AutoCAD 2024', amount: 1299, status: 'completed', date: '2024-01-05' },
   ];
 
-  const renderProfile = () => (
-    <>
-      <FormGroup>
-        <Label>{t('username') || 'اسم المستخدم'}</Label>
-        <Input
-          type="text"
-          name="username"
-          value={formData.username}
-          onChange={handleInputChange}
-          disabled={!isEditing}
-        />
-      </FormGroup>
-
-      <FormGroup>
-        <Label>{t('email') || 'البريد الإلكتروني'}</Label>
-        <Input
-          type="email"
-          name="email"
-          value={formData.email}
-          onChange={handleInputChange}
-          disabled={!isEditing}
-        />
-      </FormGroup>
-
-      <FormGroup>
-        <Label>{t('bio') || 'نبذة شخصية'}</Label>
-        <TextArea
-          name="bio"
-          value={formData.bio}
-          onChange={handleInputChange}
-          placeholder={t('enterBio') || 'أدخل نبذة عنك...'}
-          disabled={!isEditing}
-        />
-      </FormGroup>
-
-      <FormGroup>
-        <Label>{t('phone') || 'رقم الهاتف'}</Label>
-        <Input
-          type="tel"
-          name="phone"
-          value={formData.phone}
-          onChange={handleInputChange}
-          placeholder={t('enterPhone') || 'أدخل رقم الهاتف'}
-          disabled={!isEditing}
-        />
-      </FormGroup>
-
-      <FormGroup>
-        <Label>{t('address') || 'العنوان'}</Label>
-        <TextArea
-          name="address"
-          value={formData.address}
-          onChange={handleInputChange}
-          placeholder={t('enterAddress') || 'أدخل عنوانك...'}
-          disabled={!isEditing}
-        />
-      </FormGroup>
-
-      <ButtonGroup>
-        {isEditing ? (
-          <>
-            <Button variant="secondary" onClick={() => setIsEditing(false)}>
-              {t('cancel') || 'إلغاء'}
-            </Button>
-            <Button variant="primary" onClick={handleSaveProfile}>
-              {t('save') || 'حفظ'}
-            </Button>
-          </>
-        ) : (
-          <Button variant="primary" onClick={() => setIsEditing(true)}>
-            {t('edit') || 'تعديل'}
-          </Button>
-        )}
-      </ButtonGroup>
-    </>
-  );
-
-  const renderOrders = () => (
-    <>
-      <StatGrid>
-        <StatCard>
-          <StatValue>{userStats.totalOrders}</StatValue>
-          <StatLabel>{t('totalOrders') || 'إجمالي الطلبات'}</StatLabel>
-        </StatCard>
-        <StatCard>
-          <StatValue>${userStats.totalSpent}</StatValue>
-          <StatLabel>{t('totalSpent') || 'إجمالي المبلغ المنفق'}</StatLabel>
-        </StatCard>
-        <StatCard>
-          <StatValue>{userStats.wishlistItems}</StatValue>
-          <StatLabel>{t('wishlistItems') || 'عناصر قائمة الأمنيات'}</StatLabel>
-        </StatCard>
-        <StatCard>
-          <StatValue>{userStats.reviewsWritten}</StatValue>
-          <StatLabel>{t('reviewsWritten') || 'التقييمات المكتوبة'}</StatLabel>
-        </StatCard>
-      </StatGrid>
-
-      <h3 style={{ marginBottom: '1.5rem', color: 'var(--text-primary)' }}>
-        {t('recentOrders') || 'الطلبات الأخيرة'}
-      </h3>
-
-      {recentOrders.map(order => (
-        <OrderCard key={order.id}>
-          <OrderHeader>
-            <OrderId>#{t('order') || 'طلب'} {order.id}</OrderId>
-            <OrderStatus status={order.status}>
-              {order.status === 'completed' ? 'مكتمل' : 
-               order.status === 'pending' ? 'معلق' : 'ملغي'}
-            </OrderStatus>
-          </OrderHeader>
-          <OrderDetails>
-            <div><strong>{order.product}</strong></div>
-            <div>{t('amount') || 'المبلغ'}: ${order.amount}</div>
-            <div>{t('date') || 'التاريخ'}: {order.date}</div>
-          </OrderDetails>
-        </OrderCard>
-      ))}
-    </>
-  );
-
-  if (!user) {
-    return null;
-  }
+  if (!user) return null;
 
   return (
     <PageContainer dir={isRTL ? 'rtl' : 'ltr'}>
       <Header />
-      
       <ProfileContainer>
         <ProfileHeader>
           <Avatar>
             {user.avatar ? (
-              <img src={user.avatar} alt={user.username} style={{ width: '100%', height: '100%', borderRadius: '50%' }} />
+              <img
+                src={user.avatar}
+                alt={user.username}
+                style={{ width: '100%', height: '100%', borderRadius: '50%' }}
+              />
             ) : (
               getInitials(user.username)
             )}
@@ -462,34 +346,136 @@ const ProfilePage: React.FC = () => {
           <UserName>{user.username}</UserName>
           <UserEmail>{user.email}</UserEmail>
           <UserRole isAdmin={isAdmin()}>
-            {isAdmin() ? (t('admin') || 'مدير') : (t('user') || 'مستخدم')}
+            {isAdmin() ? t('admin') || 'مدير' : t('user') || 'مستخدم'}
           </UserRole>
         </ProfileHeader>
 
         <TabContainer>
-          <Tab 
-            active={activeTab === 'profile'} 
-            onClick={() => setActiveTab('profile')}
-          >
+          <Tab active={activeTab === 'profile'} onClick={() => setActiveTab('profile')}>
             {t('personalInfo') || 'المعلومات الشخصية'}
           </Tab>
-          <Tab 
-            active={activeTab === 'orders'} 
-            onClick={() => setActiveTab('orders')}
-          >
+          <Tab active={activeTab === 'orders'} onClick={() => setActiveTab('orders')}>
             {t('ordersAndStats') || 'الطلبات والإحصائيات'}
           </Tab>
-          <Tab 
-            active={activeTab === 'security'} 
-            onClick={() => setActiveTab('security')}
-          >
+          <Tab active={activeTab === 'security'} onClick={() => setActiveTab('security')}>
             {t('security') || 'الأمان'}
           </Tab>
         </TabContainer>
 
         <ContentArea>
-          {activeTab === 'profile' && renderProfile()}
-          {activeTab === 'orders' && renderOrders()}
+          {activeTab === 'profile' && (
+            <>
+              <FormGroup>
+                <Label>{t('username') || 'اسم المستخدم'}</Label>
+                <Input
+                  name="username"
+                  value={formData.username}
+                  onChange={handleInputChange}
+                  disabled={!isEditing}
+                />
+              </FormGroup>
+              <FormGroup>
+                <Label>{t('email') || 'البريد الإلكتروني'}</Label>
+                <Input
+                  name="email"
+                  value={formData.email}
+                  onChange={handleInputChange}
+                  disabled={!isEditing}
+                />
+              </FormGroup>
+              <FormGroup>
+                <Label>{t('bio') || 'نبذة شخصية'}</Label>
+                <TextArea
+                  name="bio"
+                  value={formData.bio}
+                  onChange={handleInputChange}
+                  placeholder={t('enterBio') || 'أدخل نبذة عنك...'}
+                  disabled={!isEditing}
+                />
+              </FormGroup>
+              <FormGroup>
+                <Label>{t('phone') || 'رقم الهاتف'}</Label>
+                <Input
+                  name="phone"
+                  value={formData.phone}
+                  onChange={handleInputChange}
+                  disabled={!isEditing}
+                />
+              </FormGroup>
+              <FormGroup>
+                <Label>{t('address') || 'العنوان'}</Label>
+                <TextArea
+                  name="address"
+                  value={formData.address}
+                  onChange={handleInputChange}
+                  placeholder={t('enterAddress') || 'أدخل عنوانك...'}
+                  disabled={!isEditing}
+                />
+              </FormGroup>
+
+              <ButtonGroup>
+                {isEditing ? (
+                  <>
+                    <Button variant="secondary" onClick={() => setIsEditing(false)}>
+                      {t('cancel') || 'إلغاء'}
+                    </Button>
+                    <Button variant="primary" onClick={handleSaveProfile}>
+                      {t('save') || 'حفظ'}
+                    </Button>
+                  </>
+                ) : (
+                  <Button variant="primary" onClick={() => setIsEditing(true)}>
+                    {t('edit') || 'تعديل'}
+                  </Button>
+                )}
+              </ButtonGroup>
+            </>
+          )}
+
+          {activeTab === 'orders' && (
+            <>
+              <StatGrid>
+                <StatCard>
+                  <StatValue>{userStats.totalOrders}</StatValue>
+                  <StatLabel>{t('totalOrders') || 'إجمالي الطلبات'}</StatLabel>
+                </StatCard>
+                <StatCard>
+                  <StatValue>${userStats.totalSpent}</StatValue>
+                  <StatLabel>{t('totalSpent') || 'إجمالي المبلغ المنفق'}</StatLabel>
+                </StatCard>
+                <StatCard>
+                  <StatValue>{userStats.wishlistItems}</StatValue>
+                  <StatLabel>{t('wishlistItems') || 'عناصر قائمة الأمنيات'}</StatLabel>
+                </StatCard>
+                <StatCard>
+                  <StatValue>{userStats.reviewsWritten}</StatValue>
+                  <StatLabel>{t('reviewsWritten') || 'التقييمات المكتوبة'}</StatLabel>
+                </StatCard>
+              </StatGrid>
+
+              <h3 style={{ marginBottom: '1.5rem', color: 'var(--text-primary)' }}>
+                {t('recentOrders') || 'الطلبات الأخيرة'}
+              </h3>
+
+              {recentOrders.map(order => (
+                <OrderCard key={order.id}>
+                  <OrderHeader>
+                    <OrderId>#{t('order') || 'طلب'} {order.id}</OrderId>
+                    <OrderStatus status={order.status}>
+                      {order.status === 'completed' ? 'مكتمل' :
+                        order.status === 'pending' ? 'معلق' : 'ملغي'}
+                    </OrderStatus>
+                  </OrderHeader>
+                  <OrderDetails>
+                    <div><strong>{order.product}</strong></div>
+                    <div>{t('amount') || 'المبلغ'}: ${order.amount}</div>
+                    <div>{t('date') || 'التاريخ'}: {order.date}</div>
+                  </OrderDetails>
+                </OrderCard>
+              ))}
+            </>
+          )}
+
           {activeTab === 'security' && (
             <div style={{ textAlign: 'center', padding: '2rem', color: '#666' }}>
               {t('securitySettings') || 'إعدادات الأمان قيد التطوير'}
@@ -497,11 +483,9 @@ const ProfilePage: React.FC = () => {
           )}
         </ContentArea>
       </ProfileContainer>
-
       <Footer />
     </PageContainer>
   );
 };
 
 export default ProfilePage;
-

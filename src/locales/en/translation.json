@@ -102,5 +102,8 @@
     "bestSellers": "Best Sellers",
     "pcBuilderPromo": "Create your perfect gaming setup with our PC Builder tool. Choose compatible components and get performance estimates.",
     "startBuilding": "Start Building"
-  }
+  },
+  "welcome": "Welcome",
+  "edit_and_save": "Edit and save",
+  "learn_react": "Learn React"
 }
