@@ -8,7 +8,7 @@ import StorePage from "./pages/StorePage";
 
 function App() {
   return (
-    <Router basename="/">
+    <Router basename="/Game-shop">
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/admin" element={<AdminPage />} />
