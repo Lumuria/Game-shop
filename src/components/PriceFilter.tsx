@@ -22,7 +22,7 @@ const FilterTitle = styled.h3`
   margin: 0 0 1rem;
   color: var(--text-primary);
   font-size: 1.2rem;
-`;
+`; 
 
 const RangeContainer = styled.div`
   margin-bottom: 1rem;

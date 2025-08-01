@@ -245,4 +245,4 @@ const StorePage: React.FC = () => {
   );
 };
 
-export default StorePage;
+  export default StorePage;

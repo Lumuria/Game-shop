@@ -1,6 +1,6 @@
 import { createGlobalStyle } from 'styled-components';
 
-export const GlobalStyles = createGlobalStyle`
+  export const GlobalStyles = createGlobalStyle`
   :root {
     /* Light Theme Colors */
     --primary-color: #3f51b5;

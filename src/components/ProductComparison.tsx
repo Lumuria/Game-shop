@@ -20,7 +20,7 @@ const ComparisonOverlay = styled.div`
   align-items: center;
   justify-content: center;
   padding: 1rem;
-`;
+`; 
 
 const ComparisonContainer = styled.div`
   background-color: var(--surface-color);

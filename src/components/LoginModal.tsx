@@ -242,7 +242,7 @@ const LoginModal: React.FC<LoginModalProps> = ({ isOpen, onClose }) => {
     username: '',
     email: '',
     password: '',
-    confirmPassword: '',
+     confirmPassword: '',
   });
   const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(false);

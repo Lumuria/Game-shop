@@ -1,6 +1,6 @@
 # تقرير حل مشكلة ملفات الترجمة (Locales)
 
-## المشكلة
+#  # المشكلة
 كان المشروع يعمل بشكل صحيح على `localhost:3000` ولكن بعد رفعه على GitHub Pages أو منصات النشر الأخرى، ظهرت الأخطاء التالية:
 ```
 locales/en/translation.json:1  Failed to load resource: the server responded with a status of 404 ()

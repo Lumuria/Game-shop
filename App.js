@@ -5,7 +5,7 @@ import './App.css';
 function App() {
   const { t, i18n, ready } = useTranslation();
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null); // إضافة حالة للخطأ
+  const [error, setError] = useState(null); 
 
   useEffect(() => {
     const initializeApp = async () => {
@@ -39,7 +39,7 @@ function App() {
     return (
       <div className="App" style={{ backgroundColor: '#282c34', minHeight: '100vh', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
         <div className="error" style={{ color: 'red', fontSize: '24px' }}>Error: {error}</div>
-      </div>
+       </div>
     );
   }
 

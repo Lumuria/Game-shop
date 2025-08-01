@@ -19,7 +19,7 @@ const HeaderContainer = styled.header`
 `;
 
 const TopBar = styled.div`
-  display: flex;
+   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 1rem;

@@ -223,3 +223,4 @@ const Wishlist: React.FC<WishlistProps> = ({ products, onRemoveFromWishlist, onA
 };
 
 export default Wishlist;
+

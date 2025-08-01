@@ -19,7 +19,7 @@ const MobileResponsiveContainer = styled.div`
   }
   
   @media (max-width: 768px) {
-    /* Large phones and small tablets */
+     /* Large phones and small tablets */
     padding: 0.5rem;
   }
   

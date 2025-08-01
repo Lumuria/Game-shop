@@ -17,7 +17,7 @@ const Title = styled.h2`
   margin-bottom: 1.5rem;
   color: var(--text-primary);
   font-size: 1.8rem;
-`;
+`; 
 
 const Grid = styled.div`
   display: grid;

@@ -19,7 +19,7 @@ const mockReviews = [
     helpful: 24,
     notHelpful: 2
   },
-  {
+  { 
     id: 2,
     username: 'TechEnthusiast',
     rating: 4,

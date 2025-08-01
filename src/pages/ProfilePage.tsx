@@ -488,4 +488,4 @@ const ProfilePage: React.FC = () => {
   );
 };
 
-export default ProfilePage;
+ export default ProfilePage;

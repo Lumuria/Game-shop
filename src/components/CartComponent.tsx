@@ -47,7 +47,7 @@ const CartItemList = styled.div`
 
 const CartItemContainer = styled.div`
   display: flex;
-  padding: 1rem 0;
+   padding: 1rem 0;
   border-bottom: 1px solid var(--border-color);
 
   &:last-child {

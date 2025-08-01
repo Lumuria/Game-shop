@@ -103,14 +103,14 @@ const NotificationItem = styled.div<{ isRead: boolean }>`
   border-bottom: 1px solid ${props => props.theme.colors.border};
   cursor: pointer;
   transition: all 0.2s;
-  background: ${props => props.isRead ? 'transparent' : `${props.theme.colors.primary}10`};
+   background: ${props => props.isRead ? 'transparent' : `${props.theme.colors.primary}10`};
 
   &:hover {
     background: ${props => props.theme.colors.hover};
   }
 
   &:last-child {
-    border-bottom: none;
+     border-bottom: none;
   }
 `;
 

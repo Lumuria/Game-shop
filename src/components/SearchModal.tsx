@@ -197,3 +197,4 @@ const SearchModal: React.FC<SearchModalProps> = ({ isOpen, onClose, products }) 
 };
 
 export default SearchModal;
+

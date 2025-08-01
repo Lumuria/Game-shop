@@ -13,7 +13,7 @@ const FilterContainer = styled.div`
   border-radius: 8px;
   box-shadow: 0 2px 8px var(--shadow-color);
   padding: 1.5rem;
-  margin-bottom: 1.5rem;
+   margin-bottom: 1.5rem;
 `;
 
 const FilterTitle = styled.h3`

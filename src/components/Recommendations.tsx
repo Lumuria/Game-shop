@@ -20,7 +20,7 @@ const mockRecommendations = [
     description: 'Ultra-lightweight wireless gaming mouse with HERO sensor.',
     inStock: true,
   },
-  {
+  { 
     id: '102',
     name: 'HyperX Cloud II Gaming Headset',
     category: 'accessories',

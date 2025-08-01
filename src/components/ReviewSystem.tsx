@@ -386,7 +386,7 @@ if (!newReview.comment.trim()) {
         date: new Date().toISOString().split('T')[0],
         likes: 0,
         isLiked: false
-      };
+      };  
 
       setReviews(prev => [review, ...prev]);
       setNewReview({ rating: 0, comment: '' });

@@ -25,4 +25,4 @@ i18n
   });
 
 // Export i18n
-export default i18n;
+ export default i18n;

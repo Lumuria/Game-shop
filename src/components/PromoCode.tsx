@@ -21,7 +21,7 @@ const PromoTitle = styled.h3`
 
 const PromoForm = styled.form`
   display: flex;
-`;
+`; 
 
 const PromoInput = styled.input`
   flex-grow: 1;
