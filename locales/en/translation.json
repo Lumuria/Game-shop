@@ -1,0 +1,128 @@
+{
+  "app": {
+    "name": "GameTech Store",
+    "tagline": "Your Ultimate Gaming & PC Building Destination"
+  },
+  "nav": {
+    "home": "Home",
+    "store": "Store",
+    "pcBuilder": "PC Builder",
+    "account": "Account",
+    "cart": "Cart",
+    "search": "Search",
+    "language": "Language",
+    "theme": "Theme"
+  },
+  "categories": {
+    "games": "Games",
+    "accessories": "Accessories",
+    "components": "Components",
+    "peripherals": "Peripherals"
+  },
+  "pcBuilder": {
+    "title": "Build Your PC",
+    "subtitle": "Select components and check compatibility",
+    "processor": "Processor",
+    "motherboard": "Motherboard",
+    "memory": "Memory",
+    "graphics": "Graphics Card",
+    "storage": "Storage",
+    "powerSupply": "Power Supply",
+    "case": "Case",
+    "cooling": "Cooling",
+    "compatibility": "Compatibility",
+    "compatibilityScore": "Compatibility Score",
+    "powerConsumption": "Power Consumption",
+    "performanceEstimate": "Performance Estimate",
+    "saveConfig": "Save Configuration",
+    "shareConfig": "Share Configuration",
+    "addToCart": "Add All to Cart"
+  },
+  "product": {
+    "addToCart": "Add to Cart",
+    "addToWishlist": "Add to Wishlist",
+    "compare": "Compare",
+    "specifications": "Specifications",
+    "reviews": "Reviews",
+    "relatedProducts": "Related Products",
+    "inStock": "In Stock",
+    "outOfStock": "Out of Stock",
+    "quantity": "Quantity",
+    "new": "NEW",
+    "sale": "SALE"
+  },
+  "cart": {
+    "title": "Shopping Cart",
+    "empty": "Your cart is empty",
+    "continueShopping": "Continue Shopping",
+    "checkout": "Checkout",
+    "total": "Total",
+    "subtotal": "Subtotal",
+    "tax": "Tax",
+    "shipping": "Shipping",
+    "discount": "Discount",
+    "promoCode": "Promo Code",
+    "apply": "Apply",
+    "addedToCart": "added to cart"
+  },
+  "account": {
+    "login": "Login",
+    "register": "Register",
+    "profile": "Profile",
+    "orders": "Orders",
+    "wishlist": "Wishlist",
+    "savedConfigs": "Saved Configurations",
+    "notifications": "Notifications",
+    "logout": "Logout",
+    "welcomeBack": "Welcome back! Please login to your account",
+    "userLogin": "User Login",
+    "adminLogin": "Admin Login",
+    "email": "Email",
+    "emailPlaceholder": "Enter your email",
+    "password": "Password",
+    "passwordPlaceholder": "Enter your password",
+    "hide": "Hide",
+    "show": "Show",
+    "rememberMe": "Remember me",
+    "loggingIn": "Logging in...",
+    "forgotPassword": "Forgot password?",
+    "or": "Or",
+    "loginWithGoogle": "Login with Google",
+    "loginWithFacebook": "Login with Facebook",
+    "noAccount": "Don\'t have an account?",
+    "createAccount": "Create a new account",
+    "loginErrorAdmin": "Invalid admin username or password",
+    "loginErrorUser": "Invalid email or password",
+    "loginSuccess": "Logged in successfully!",
+    "socialLoginUnavailable": "Login with {{provider}} is not available yet",
+    "loginGenericError": "An error occurred during login. Please try again."
+  },
+  "footer": {
+    "about": "About Us",
+    "contact": "Contact",
+    "faq": "FAQ",
+    "support": "Support",
+    "terms": "Terms & Conditions",
+    "privacy": "Privacy Policy",
+    "copyright": "© 2025 GameTech Store. All rights reserved."
+  },
+  "theme": {
+    "light": "Light Mode",
+    "dark": "Dark Mode"
+  },
+  "language": {
+    "en": "English",
+    "ar": "العربية"
+  },
+  "search": {
+    "placeholder": "Search products...",
+    "noResults": "No products found"
+  },
+  "home": {
+    "browseCategories": "Browse Categories",
+    "featuredProducts": "Featured Products",
+    "bestSellers": "Best Sellers",
+    "pcBuilderPromo": "Create your perfect gaming setup with our PC Builder tool. Choose compatible components and get performance estimates.",
+    "startBuilding": "Start Building"
+  }
+}

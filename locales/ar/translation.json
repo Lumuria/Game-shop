@@ -1,0 +1,128 @@
+{
+  "app": {
+    "name": "متجر جيم تك",
+    "tagline": "وجهتك المثالية للألعاب وبناء الحواسيب"
+  },
+  "nav": {
+    "home": "الرئيسية",
+    "store": "المتجر",
+    "pcBuilder": "ابني حاسوبي",
+    "account": "الحساب",
+    "cart": "سلة التسوق",
+    "search": "بحث",
+    "language": "اللغة",
+    "theme": "المظهر"
+  },
+  "categories": {
+    "games": "الألعاب",
+    "accessories": "الملحقات",
+    "components": "القطع",
+    "peripherals": "الإكسسوارات"
+  },
+  "pcBuilder": {
+    "title": "ابني حاسوبك",
+    "subtitle": "اختر المكونات وتحقق من التوافق",
+    "processor": "المعالج",
+    "motherboard": "اللوحة الأم",
+    "memory": "الذاكرة",
+    "graphics": "بطاقة الرسوميات",
+    "storage": "التخزين",
+    "powerSupply": "مزود الطاقة",
+    "case": "الهيكل",
+    "cooling": "التبريد",
+    "compatibility": "التوافق",
+    "compatibilityScore": "نسبة التوافق",
+    "powerConsumption": "استهلاك الطاقة",
+    "performanceEstimate": "تقدير الأداء",
+    "saveConfig": "حفظ التكوين",
+    "shareConfig": "مشاركة التكوين",
+    "addToCart": "إضافة الكل إلى السلة"
+  },
+  "product": {
+    "addToCart": "إضافة إلى السلة",
+    "addToWishlist": "إضافة إلى قائمة الرغبات",
+    "compare": "مقارنة",
+    "specifications": "المواصفات",
+    "reviews": "التقييمات",
+    "relatedProducts": "منتجات ذات صلة",
+    "inStock": "متوفر",
+    "outOfStock": "غير متوفر",
+    "quantity": "الكمية",
+    "new": "جديد",
+    "sale": "تخفيض"
+  },
+  "cart": {
+    "title": "سلة التسوق",
+    "empty": "سلة التسوق فارغة",
+    "continueShopping": "متابعة التسوق",
+    "checkout": "إتمام الشراء",
+    "total": "المجموع",
+    "subtotal": "المجموع الفرعي",
+    "tax": "الضريبة",
+    "shipping": "الشحن",
+    "discount": "الخصم",
+    "promoCode": "رمز الخصم",
+    "apply": "تطبيق",
+    "addedToCart": "تم إضافته إلى السلة"
+  },
+  "account": {
+    "login": "تسجيل الدخول",
+    "register": "إنشاء حساب",
+    "profile": "الملف الشخصي",
+    "orders": "الطلبات",
+    "wishlist": "قائمة الرغبات",
+    "savedConfigs": "التكوينات المحفوظة",
+    "notifications": "الإشعارات",
+    "logout": "تسجيل الخروج",
+    "welcomeBack": "مرحباً بك مرة أخرى! يرجى تسجيل الدخول إلى حسابك",
+    "userLogin": "تسجيل دخول المستخدم",
+    "adminLogin": "تسجيل دخول المدير",
+    "email": "البريد الإلكتروني",
+    "emailPlaceholder": "أدخل بريدك الإلكتروني",
+    "password": "كلمة المرور",
+    "passwordPlaceholder": "أدخل كلمة المرور",
+    "hide": "إخفاء",
+    "show": "إظهار",
+    "rememberMe": "تذكرني",
+    "loggingIn": "جاري تسجيل الدخول...",
+    "forgotPassword": "نسيت كلمة المرور؟",
+    "or": "أو",
+    "loginWithGoogle": "تسجيل الدخول بـ Google",
+    "loginWithFacebook": "تسجيل الدخول بـ Facebook",
+    "noAccount": "ليس لديك حساب؟",
+    "createAccount": "إنشاء حساب جديد",
+    "loginErrorAdmin": "اسم المستخدم أو كلمة المرور الخاصة بالمدير غير صحيحة",
+    "loginErrorUser": "البريد الإلكتروني أو كلمة المرور غير صحيحة",
+    "loginSuccess": "تم تسجيل الدخول بنجاح!",
+    "socialLoginUnavailable": "تسجيل الدخول عبر {{provider}} غير متاح حالياً",
+    "loginGenericError": "حدث خطأ أثناء تسجيل الدخول. يرجى المحاولة مرة أخرى."
+  },
+  "footer": {
+    "about": "من نحن",
+    "contact": "اتصل بنا",
+    "faq": "الأسئلة الشائعة",
+    "support": "الدعم",
+    "terms": "الشروط والأحكام",
+    "privacy": "سياسة الخصوصية",
+    "copyright": "© 2025 متجر جيم تك. جميع الحقوق محفوظة."
+  },
+  "theme": {
+    "light": "الوضع الفاتح",
+    "dark": "الوضع المظلم"
+  },
+  "language": {
+    "en": "English",
+    "ar": "العربية"
+  },
+  "search": {
+    "placeholder": "البحث عن المنتجات...",
+    "noResults": "لم يتم العثور على منتجات"
+  },
+  "home": {
+    "browseCategories": "تصفح الفئات",
+    "featuredProducts": "المنتجات المميزة",
+    "bestSellers": "الأكثر مبيعاً",
+    "pcBuilderPromo": "أنشئ إعداد الألعاب المثالي باستخدام أداة بناء الحاسوب. اختر المكونات المتوافقة واحصل على تقديرات الأداء.",
+    "startBuilding": "ابدأ البناء"
+  }
+}
